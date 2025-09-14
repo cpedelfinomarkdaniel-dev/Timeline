@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timeline of Computing & Digital Technology — Interactive</title>
+  <style>
+    :root{
+      --bg:#0000fa;
+      --card:#191970;
+      --accent:#0047AB;
+      --muted:#2556ea;
+      --glass: #0096FF;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:linear-gradient(180deg,#0b1d58 0%, #01080f 100%); color:#f9f9f9}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:transparent}
+    header h1{font-size:20px;margin:0;color:#ffffff}
+    .controls{display:flex;gap:10px;align-items:center}
+    .bubble{appearance:none;border:0;padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--accent),#6233f0);color:rgb(229, 229, 229);box-shadow:0 6px 18px rgba(0, 0, 0, 0.22);cursor:pointer;font-weight:600;transition:transform .18s ease, box-shadow .18s ease}
+    .bubble:active{transform:translateY(2px)}
+    .bubble.ghost{background:transparent;color:var(--accent);box-shadow:none;border:1px solid rgba(61, 140, 244, 0.97)}
+    nav{padding:12px 20px;overflow:auto;border-bottom:1px solid rgb(83, 163, 255);display:flex;gap:10px}
+
+    main{padding:24px;max-width:1200px;margin:0 auto}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+    .card{background:var(--card);border-radius:14px;padding:16px;box-shadow:0 6px 24px rgba(8, 0, 0, 0.933);display:flex;flex-direction:column;align-items:center;gap:12px}
+    .card h2{margin:6px 0 0;font-size:16px;text-align:center}
+    .card .subtitle{font-size:13px;color:var(--muted);text-align:center}
+    .photo-wrap{width:100%;display:flex;justify-content:center}
+    .photo{width:200px;height:140px;border-radius:8px;background:#000b4af2;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 6px 14px rgba(225, 219, 219, 0.779)}
+    .photo img{max-width:100%;max-height:100%;display:block}
+    .textbox{width:100%;background:linear-gradient(180deg,#6495ED,#fbfbff);padding:12px;border-radius:10px;border:1px solid rgba(242, 242, 242, 0.03);font-size:13px;color:#111}
+    .small-actions{display:flex;gap:8px;align-items:center;justify-content:center}
+    .tag{font-size:12px;padding:6px 10px;border-radius:999px;background:#ede2e2;color:#380f84}
+
+    footer{padding:24px;text-align:center;color:var(--muted)}
+    .authors{display:flex;justify-content:center;gap:40px;margin-top:20px;flex-wrap:wrap}
+    .author-card{display:flex;flex-direction:column;align-items:center;gap:8px}
+    .author-photo{width:80px;height:80px;border-radius:50%;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.5)}
+    .author-photo img{width:100%;height:100%;object-fit:cover}
+    .author-name{font-size:14px;color:#f1f1f1;font-weight:600;text-align:center}
+    @media (max-width:520px){
+      .photo{width:160px;height:110px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Timeline of Computing & Digital Technology </h1>
+    <div class="controls">
+      <button class="bubble" id="toggleAll">Collapse all</button>
+    </div>
+  </header>
+
+  <nav id="nav"></nav>
+
+  <main>
+    <section class="grid" id="timeline"></section>
+  </main>
+
+  <footer>
+    <h3>Authors</h3>
+    <div class="authors">
+      <div class="author-card">
+        <div class="author-photo">
+          <img src="images/Daniel.jpg" alt="Delfino Mark Daniel N.">
+        </div>
+        <div class="author-name">Delfino Mark Daniel N.</div>
+      </div>
+      <div class="author-card">
+        <div class="author-photo">
+          <img src="images/christel.jpg" alt="Palivino, Christel Joy V.">
+        </div>
+        <div class="author-name">Palivino, Christel Joy V.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const timeline = [
+    {title:`Stonehenge: the World’s First Computer | 3000 BCE`,desc:`Stonehenge functioned as a massive astronomical calculator. The arrangement of its stones aligned with the sun, moon, and stars in predictable patterns, allowing early societies to track seasons and time.`,impact:`Allowed people to plan agriculture, rituals, and community activities by predicting seasonal changes.`,img:"images/stone.jpg"},
+    {title:`Sumerian Cuneiform and Numerology | 3000 BCE `,desc:`Cuneiform was one of the first writing systems and the Sumerians developed a sexagesimal (base-60) number system used for time and angles.`,impact:`Enabled record-keeping for trade and governance; laid foundations for timekeeping and geometry.`,img:"images/cunie.jpg"},
+    {title:`The Roman Abacus and Chinese Suan Pan | 300 BCE – 1200 `,desc:`Manual calculating tools that made arithmetic fast and portable across commerce and engineering settings.`,impact:`Democratized mathematics and empowered merchants and engineers to compute quickly.`,img:"images/atik.jpg"},
+    {title:`The Antikythera Mechanism | 100 BCE `,desc:`An ancient Greek geared device that predicted astronomical events like eclipses and planetary motion.`,impact:`Demonstrated that mechanical devices could model complex systems—useful for navigation and astronomy.`,img:"images/abaaa.jpg"},
+    {title:`The Pascaline Calculator | 1642 `,desc:`Blaise Pascal's mechanical calculator automated addition and subtraction (and by repetition, multiplication and division).`,impact:`Reduced human error in calculations and sped up administrative math.`,img:"pascalimages/.jpg"},
+    {title:`Charles Babbage’s Difference & Analytical Engines |1820s–1830s `,desc:`Mechanical designs for automatic table computation (Difference Engine) and a programmable general-purpose engine (Analytical Engine).`,impact:`Introduced programmable computation concepts — memory, punched cards — that prefigured modern computers.`,img:"images/chare.jpg"},
+    {title:`Ada Lovelace Writes the First Program | 1840s `,desc:`Ada Lovelace wrote what is considered the first algorithm intended for a machine (for Babbage's Analytical Engine).`,impact:`Conceptualized computers as processors of symbols and ideas — the birth of programming.`,img:"images/adala.jpg"},
+    {title:`Alan Turing’s Universal Computing Machine | 1936 `,desc:`Turing proposed a theoretical machine capable of performing any computable operation by following encoded instructions.`,impact:`Provided the theoretical foundation for modern computer science and the idea of general-purpose machines.`,img:"images/alan.jpg"},
+    {title:`John Von Neumann and the Stored-Program Concept | 1945 `,desc:`Proposed storing program instructions and data in the same memory, enabling easier reprogramming.`,impact:`Became the dominant architecture enabling software, conditional logic, and flexible computing.`,img:"images/jon.jpg"},
+    {title:`ENIAC | 946 `,desc:`The first large-scale electronic general-purpose computer using vacuum tubes to perform fast calculations.`,impact:`Proved electronic computation could tackle large scientific and military problems.`,img:"images/enni.jpg"},
+    {title:`The Transistor | 1947 `,desc:`A small semiconductor device that replaced vacuum tubes — faster, smaller, and more reliable.`,impact:`Enabled miniaturization, lower power, and ultimately the integrated circuits that power modern devices.`,img:"images/trans.jpg"},
+    {title:`UNIVAC | 1951 `,desc:`The first commercial computer based on stored-program architecture, used for business and government data processing.`,impact:`Introduced computing into business workflows and large-scale data processing.`,img:"images/uni.jpg"},
+    {title:`Grace Hopper Creates COBOL |1959 `,desc:`COBOL was a human-readable programming language aimed at business and administrative tasks.`,impact:`Made programming accessible to non-specialists and powered enterprise systems for decades.`,img:"images/grace.jpg"},
+    {title:`The Apple II |1977 `,desc:`One of the first successful personal computers marketed to homes and schools with color graphics and expandability.`,impact:`Helped start the personal computing revolution and made computers accessible to families and educators.`,img:"images/appl.jpg"},
+    {title:`IBM’s Personal Computer | 1981 `,desc:`The IBM 5150 standardized PC architecture and ran MS-DOS, spawning an ecosystem of compatible machines.`,impact:`Set industry standards that shaped business and home computing for decades.`,img:"images/ibm.png"},
+    {title:`Apple Macintosh | 1984 `,desc:`Popularized the graphical user interface, icons, and the mouse for mainstream users.`,impact:`Made computing intuitive and design-focused, influencing all modern GUIs.`,img:"images/app1.png"},
+    {title:`Microsoft Windows 1.0 | 1985 `,desc:`An early graphical shell for MS-DOS that evolved into the Windows family of operating systems.`,impact:`Brought GUI computing to a mass audience and became a dominant OS platform.`,img:"images/w1.png"},
+    {title:`The World Wide Web | 1989 `,desc:`Tim Berners-Lee proposed a distributed hypertext system that became the basis of the modern web.`,impact:`Revolutionized global information sharing, communication, and commerce.`,img:"images/www.png"},
+    {title:`The Internet Connects the World | 1990s `,desc:`Expansion of networks, email, forums, and early websites that connected people globally.`,impact:`Enabled new forms of collaboration, commerce, and social interaction across borders.`,img:"images/theit2.png"},
+    {title:`Connected Living / Internet of Things | 2000s `,desc:`Everyday objects became networked devices (phones, TVs, sensors), creating smart environments.`,impact:`Enabled automation, remote monitoring, and a new data-driven lifestyle.`,img:"images/conni.png"},
+    {title:`Quantum Computers | 21st Century `,desc:`Quantum systems use qubits and quantum phenomena to perform certain calculations much faster than classical machines.`,impact:`Promise breakthroughs in cryptography, optimization, and materials science as the field matures.`,img:"images/kwan.png"}
+  ];
+
+
+    const nav = document.getElementById('nav');
+    const container = document.getElementById('timeline');
+
+    timeline.forEach((item, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'bubble';
+      btn.innerText = `${idx+1}`;
+      btn.title = item.title;
+      btn.addEventListener('click', ()=>{
+        document.getElementById(`card-${idx}`).scrollIntoView({behavior:'smooth', block:'center'});
+      });
+      nav.appendChild(btn);
+
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.id = `card-${idx}`;
+
+      const h = document.createElement('h2'); h.innerText = item.title;
+      const sub = document.createElement('div'); sub.className='subtitle'; sub.innerText = `Entry ${idx+1}`;
+
+      const photos = document.createElement('div'); photos.className = 'photo-wrap';
+      const p = document.createElement('div'); p.className='photo';
+      if(item.img){p.innerHTML = `<img src="${item.img}" alt="${item.title}">`;}
+      else{p.innerHTML = `<span>No image</span>`;}
+      photos.appendChild(p);
+
+      const textbox = document.createElement('div'); textbox.className='textbox';
+      textbox.innerHTML = `<strong>Description</strong><p>${item.desc}</p><strong>Performance Impact</strong><p>${item.impact}</p>`;
+
+      const actions = document.createElement('div'); actions.className='small-actions';
+      const collapseBtn = document.createElement('button'); collapseBtn.className='bubble ghost'; collapseBtn.innerText='Toggle text';
+      collapseBtn.addEventListener('click', ()=>{
+        textbox.style.display = textbox.style.display === 'none' ? 'block' : 'none';
+      });
+      actions.appendChild(collapseBtn);
+
+      card.appendChild(h);
+      card.appendChild(sub);
+      card.appendChild(photos);
+      card.appendChild(textbox);
+      card.appendChild(actions);
+      container.appendChild(card);
+    });
+
+    const toggleAll = document.getElementById('toggleAll');
+    toggleAll.addEventListener('click', ()=>{
+      const boxes = document.querySelectorAll('.textbox');
+      const anyVisible = Array.from(boxes).some(b => b.style.display !== 'none');
+      boxes.forEach(b => b.style.display = anyVisible ? 'none' : 'block');
+      toggleAll.innerText = anyVisible ? 'Expand all' : 'Collapse all';
+    });
+  </script>
+</body>
+</html>
